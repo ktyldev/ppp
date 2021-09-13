@@ -13,7 +13,7 @@ if argc < 3:
 
 # figure out src dir from root argument
 sep="/"
-src_dir = sep.join(sys.argv[1].split(sep)[:-1])
+src_dir = sep.join(sys.argv[2].split(sep)[:-1])
 
 # regex patterns
 p_var = re.compile(r'(#.+?\.css)')
