@@ -1,5 +1,6 @@
 import sys
 import os.path
+import re
 
 err = False
 paths = []
@@ -14,6 +15,9 @@ if argc < 3:
 sep="/"
 src_dir = sep.join(sys.argv[1].split(sep)[:-1])
 
+# regex patterns
+p_var = re.compile(r'(#.+?\.css)')
+
 def print_usage():
     print("\nusage: python ppp.py ROOT TEMPLATES [...]")
 
@@ -27,6 +31,7 @@ def preprocess_file(path):
 
         for l in content:
 
+            # replace lines that start with #include with the contents of a file
             if l.startswith("#include"):
                 include_path = l.split(" ")[1]
 
@@ -35,6 +40,15 @@ def preprocess_file(path):
 
                 preprocess_file(include_path)
                 continue
+
+            # inline replace any occurrence of #filename with the contents of that file
+            match = re.search(p_var, l)
+            if match:
+                path = "/".join([src_dir, match.group(0)[1:]])
+
+                with open(path) as var_file:
+                    var_content = var_file.read().strip()
+                    l = re.sub(p_var, var_content, l)
 
             print(l)
 
