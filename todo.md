@@ -1,0 +1,2 @@
+* [ ] strip strings
+* [ ] inline templating
