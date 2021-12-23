@@ -1,2 +1,3 @@
 * [ ] strip strings
-* [ ] inline templating
+* [ ] template parameters
+    * [ ] inject position parameters into #0# #1# in template file 
