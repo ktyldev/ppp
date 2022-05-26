@@ -44,8 +44,6 @@ def preprocess_file(path):
                         include_path = inc
                         break
 
-                print(include_path)
-
                 preprocess_file(include_path)
                 continue
 
