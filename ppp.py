@@ -11,6 +11,8 @@ if argc < 3:
     print_usage()
     sys.exit(1)
 
+includes = sys.argv[2:]
+
 # figure out src dir from root argument
 sep="/"
 src_dir = sep.join(sys.argv[2].split(sep)[:-1])
@@ -36,7 +38,13 @@ def preprocess_file(path):
                 include_path = l.split(" ")[1]
 
                 # prepend directory
-                include_path = "/".join([src_dir, include_path])
+                #include_path = "/".join([src_dir, include_path])
+                for inc in includes:
+                    if os.path.basename(inc) == include_path:
+                        include_path = inc
+                        break
+
+                print(include_path)
 
                 preprocess_file(include_path)
                 continue
